@@ -10,23 +10,22 @@ A set would be useful for storing executed line numbers without duplicates. Sinc
 
 A list or array might be used to store tokens or lines of code when analyzing a source file. This helps reconstruct the structure of the program.
 
-Additionally, trees or graph-like structures might appear when analyzing Python’s abstract syntax tree (AST) to detect functions or code regions. These structures allow the coverage tool to understand code structure rather than just individual lines.
+Trees or graph-like structures might appear when analyzing Python’s abstract syntax tree (AST) to detect functions or code regions. These structures allow the coverage tool to understand code structure rather than just individual lines.
 
-Together, these data structures help efficiently record, analyze, and report which parts of a program were executed.
 # Initial Code Examination
 The coverage.py project contains several directories including coverage, tests, doc, and ci. The coverage directory contains the main implementation of the coverage tool, while the tests directory contains automated tests that verify the tool’s correctness. The project also includes documentation files such as CHANGES.rst, CONTRIBUTORS.txt, and configuration files for development tools.
 
-Using a line counting tool shows that the project is fairly large. The main implementation code in the coverage directory contains roughly 16,000 lines, while the tests directory contains about 28,000 lines of test code. This indicates that the project has a very large and thorough test suite.
+This project is quite large: coverage directory containing roughly 16,000 lines and tests directory containing around 28,000 lines. Indicating the project has a thorough test suite.
 
-We examined two test files:
+Test Files:
 
 test_templite.py :
 This file tests the Templite class used by coverage.py. It verifies that template rendering works correctly and that errors such as syntax problems are properly detected.
 
 tests/zipsrc/zip1/init.py :
-This file is mostly empty and serves as part of a test package used to verify how coverage handles zipped Python modules.
+This file is mostly empty. Part of a test package, it verifies coverages behaviour with zipped python modules
 
-We also examined five files from the coverage directory:
+Coverage directory files:
 
 phystokens.py :
 This file handles tokenizing Python source code. It wraps Python’s tokenizer to ensure physical tokens, including line continuations, are properly captured.
@@ -44,6 +43,7 @@ pytracer.py :
 This module implements the tracer that collects execution data as a program runs.
 
 Overall, the code itself is generally more informative than comments, although comments help clarify complex parts of the implementation.
+
 # Detailed Code Examination
 One interesting file that uses data structures extensively is regions.py, which identifies functions and classes within Python source code.
 
@@ -76,10 +76,13 @@ Line numbers are collected into sets.
 Completed regions are stored in the regions list.
 
 These data structures allow coverage.py to understand the structural organization of code so it can report coverage information for specific functions and classes.
+
 # Summary
-Overall, the code in coverage.py seems well organized and fairly readable, especially considering how large the project is. The code is split into different modules that each handle a specific task, which makes it easier to understand how the system works. For example, some modules focus on tracking which lines of code run during execution, while others deal with file handling or generating reports about coverage results.
-Most of the functions also have clear and descriptive names, which makes the code easier to follow. The comments are mainly used to explain more complicated sections of the code instead of repeating what the code already says. This helps keep the files cleaner while still making the logic understandable.
 
-Another thing we noticed is that the project has a very large test suite. There are actually more lines of testing code than implementation code. This suggests that the developers place a strong emphasis on making sure the software works correctly and continues to work as changes are made.
+Overall, the code in coverage.py seems well organized and fairly readable. The code is split into different modules that each handle a specific task, making it easier to understand how the system works. For example, some modules focus on tracking which lines of code run during execution, while others deal with file handling or generating reports about coverage results.
 
-Compared to the kind of code we usually write in our own projects, this codebase is much more modular and structured. Different pieces of functionality are separated into helper modules and organized in a clear way. Even though some parts of the code are complicated, the overall structure makes it seem maintainable. With enough time to understand the project structure, we think it would be possible to work on or update this code without too much difficulty.
+Most of the functions also have clear and descriptive names, making it easy to follow. The comments are mainly used to explain more complicated sections. This keeps the files cleaner while still making the logic understandable.
+
+Another thing we noticed is the large test suite this project has, with the test suite having more lines than the implementation code. Implying the developers stressed correctness and reliability.
+
+Compared to the kind of code we usually write in our own projects, this codebase is much more modular and structured. Different pieces of functionality are separated into helper modules and organized in a clear way. Though some parts of the code are complicated, its structure makes it seem maintainable. Given enough time we could work on or update this code without too much difficulty.
